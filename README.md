@@ -5,6 +5,7 @@ This [github repository](https://github.com/Deeeeen/california_mouse_genotyping)
 
 ## Contents
 - **[genotyping](genotyping)**: This folder contains the code for genotyping steps.
+- **[California_Mouse_Genotyping_Documentation](California_Mouse_Genotyping_Documentation.pdf)**: PDF documentation for genotyping steps.
 
 ## Pipeline Overview
 ![](assets/pipeline_overview.png)
