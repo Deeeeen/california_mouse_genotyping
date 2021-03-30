@@ -4,13 +4,13 @@
 This folder contains the code for genotyping steps.
 
 ## Contents
-**[peromyscus_phase1.sh](peromyscus_phase1.sh)**: This folder contains the code for the first phase of genotyping. Including the following steps:  
+**[peromyscus_phase1.sh](peromyscus_phase1.sh)**: This script contains the code for the first phase of genotyping. Including the following steps:  
 - Reference Genome Preparation 
 - Demultiplexing
 - Quality Control
 - Quality Trimming
 
-**[peromyscus_phase2.sh](peromyscus_phase2.sh)**: This folder contains the code for the second phase of genotyping. Including the following steps:  
+**[peromyscus_phase2.sh](peromyscus_phase2.sh)**: This script contains the code for the second phase of genotyping. Including the following steps:  
 - Map to Reference Genome 
 - Convert SAM to BAM
 - Sort BAM Files
