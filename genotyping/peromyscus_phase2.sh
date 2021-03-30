@@ -144,63 +144,6 @@ done
 END=$(date +%s)
 echo "Index alignments time elapsed: $(( $END - $START )) seconds"
 
-################ Mapping and Duplicates Marking Results #######################
-##### average mapping depth
-ncpu=23
-START=$(date +%s)
-touch ${dir_path}/bams/avg_coverage
-
-fs_in=$(ls ${dir_path}/bams/*_mkDup.bam)
-cnt=0
-for f in $fs_in
-do
-   while [ "$(jobs -rp | wc -l)" -ge $ncpu ]; do
-      sleep 60
-   done
-   sleep 5
-   (( cnt += 1 ))
-   fn=$(echo ${f} | rev | cut -d '.' -f 2 | rev)
-
-   echo -e "\n----- run ${cnt}-th file: $f > ${fn}.coverage -----"
-   samtools depth $f > ${fn}.coverage
-   ave_coverage=$(awk '{sum+=$3} END {print sum/NR}' ${fn}.coverage)
-   temp=$(echo ${fn} | rev | cut -d'/' -f 1 | rev)
-   temp2=$(cut -d '-' -f 1 <<< $temp)
-   echo "$temp2 $ave_coverage" >> ${dir_path}/bams/avg_coverage
-   rm ${fn}.coverage
-done
-
-while [ "$(jobs -rp | wc -l)" -gt 0 ]; do
-   sleep 60 
-done
-END=$(date +%s)
-echo "Mapping coverage time elapsed: $(( $END - $START )) seconds"
-
-#### uniquely mapping
-ncpu=23
-START=$(date +%s)
-touch ${dir_path}/bams/uniq_mapped
-
-fs_in=$(ls ${dir_path}/bams/*_mkDup.bam)}
-for f in $fs_in
-do
-   while [ "$(jobs -rp | wc -l)" -ge $ncpu ]; do
-      sleep 60
-   done
-   sleep 5
-   samtools view -c -q 40 $f > ${dir_path}/bams/uniq_mapped
-done
-
-while [ "$(jobs -rp | wc -l)" -gt 0 ]; do
-   sleep 60
-done
-END=$(date +%s)
-echo "Time elapsed: $(( $END - $START )) seconds"
-
-module load python
-python3 ${dir_path}/mapping_stats.py ${dir_path}/bams
-module unload python
-
 ############################### variant calling ###############################
 mkdir ${dir_path}/vcfs
 ncpu=23
